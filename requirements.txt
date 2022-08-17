@@ -1,0 +1,16 @@
+streamlit
+sklearn
+tweet-preprocessor
+textblob
+sastrawi
+emoji
+PySastrawi
+VaderSentiment
+tweepy==3.10.0
+nltk
+preprocessor
+matplotlib
+wordcloud 
+seaborn
+googletrans==3.1.0a0
+openpyxl==3.0.3
