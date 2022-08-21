@@ -1,4 +1,5 @@
 import streamlit as st
+from streamlit_option_menu import option_menu
 import pandas as pd
 import matplotlib.pyplot as plt
 from wordcloud import WordCloud
@@ -19,8 +20,6 @@ import seaborn as sns
 import pandas as pd
 import numpy as np
 import random
-
-
 
 def show_pie(label, data, legend_title) :
     fig, ax = plt.subplots(figsize=(8, 10), subplot_kw=dict(aspect='equal'))
@@ -258,7 +257,7 @@ def nby():
     data['klasifikasi_bayes'] = pd.DataFrame({'klasifikasi_bayes': status})
 
     st.subheader('Tweet Sentiment Analyzed Using Naive Bayes')
-    st.dataframe(data.tail(381))
+    st.dataframe(data.tail())
     label = ['Positif', 'Negatif', 'Netral']
     count_data = [total_positif+1, total_negatif+1, total_netral]
     show_pie(label, count_data, "Status")
@@ -289,16 +288,21 @@ def nby():
 
 
 def main():
-    activities = ['Home','Lexicon Based','Naive Bayes Classifier']
+    activities = ['Beranda','Lexicon','Naive Bayes']
 
+    # st.sidebar.subheader("Menu")
+    # choice = st.sidebar.radio('',activities)
     st.sidebar.subheader("ANALISIS SENTIMEN TWITTER")
-    choice = st.sidebar.selectbox('---------------------------------------------------------------------',activities)
-    if choice == 'Home':
+    with st.sidebar:
+        choice = option_menu("Menu", activities)
+    if choice == 'Beranda':
         home()
-    elif choice == 'Lexicon Based':
+    elif choice == 'Lexicon':
         lex()
-    elif choice == 'Naive Bayes Classifier':
+    elif choice == 'Naive Bayes':
         nby()
+
+
 
 if __name__ == '__main__':
     main()
