@@ -147,7 +147,7 @@ def lex():
 
 # bagian menu Naive Bayes
 def nby():
-    st.title('Naive Bayes')
+    st.title('Dataset Naive Bayes Classifier')
 
     data_org    = pd.read_csv('bersih_lepasmasker.csv')
     data  = pd.read_csv('translate_lepasmasker.csv')
