@@ -20,6 +20,8 @@ import pandas as pd
 import numpy as np
 import random
 
+
+
 def show_pie(label, data, legend_title) :
     fig, ax = plt.subplots(figsize=(8, 10), subplot_kw=dict(aspect='equal'))
     
@@ -62,13 +64,16 @@ def show_pie(label, data, legend_title) :
 
 # bagian menu BERANDA
 def home():
-    st.title('Beranda')
+    st.title('Aplikasi Analisis Sentimen')
+    st.write("""# Selamat Datang Pada Menu Analisis Sentimen Twitter Tentang Lepas Masker""")
+    st.markdown("---")
 #end of home
 
 # bagian menu Lexicon
 
 def lex():
-    st.title('Lexicon')
+    st.title('Dataset Lexicon Based')
+    st.markdown("---")
 
     data_org = pd.read_csv('bersih_lepasmasker.csv')
     data = pd.read_csv('translate_lepasmasker.csv')
@@ -76,10 +81,10 @@ def lex():
     tweet_df = pd.read_csv('hasillepasmasker.csv')
 
     st.subheader('Tweet')
-    st.dataframe(data_org.head())
+    st.dataframe(data_org.head(381))
 
     st.subheader('Tweet Translated')
-    st.dataframe(data.head())
+    st.dataframe(data.head(381))
 
     st.subheader('Sentiments')
     s = pd.value_counts(tweet_df['Sentiments'])
@@ -112,13 +117,13 @@ def lex():
     st.subheader('dataklasifikasi.xlsx')
     #masukan data label secara manual
     dataset = pd.read_excel('dataklasifikasi.xlsx')
-    st.write(dataset.head())
+    st.write(dataset.head(381))
 
     st.subheader('Compound Score')
     analyser = SentimentIntensityAnalyzer()
     scores = [analyser.polarity_scores(x) for x in dataset['Tweet']]
     dataset['Compound_Score'] = [x['compound'] for x in scores]
-    st.write(dataset.head())
+    st.write(dataset.head(381))
 
     st.subheader('Compound Score to Sentiment')
 
@@ -130,7 +135,7 @@ def lex():
     st.write('Compound Score == 0,Sentimen Netral')
     st.write('Compound Score > 0,Sentimen Positif')
 
-    st.write(dataset.head())
+    st.write(dataset.head(381))
 
     
     st.subheader('Metrics')
@@ -148,10 +153,10 @@ def nby():
     data  = pd.read_csv('translate_lepasmasker.csv')
 
     st.subheader('Tweet')
-    st.dataframe(data_org.head())
+    st.dataframe(data_org.head(381))
 
     st.subheader('Tweet Translated')
-    st.dataframe(data.head())
+    st.dataframe(data.head(381))
 
     
     ps = PorterStemmer()
@@ -189,7 +194,7 @@ def nby():
 
     st.subheader('Tweet Sentiment Analyzed Using Textblob')
 
-    st.dataframe(data.tail())
+    st.dataframe(data.tail(381))
     label = ['Positif', 'Negatif', 'Netral']
     count_data = [total_positif+1, total_negatif+1, total_netral]
 
@@ -253,7 +258,7 @@ def nby():
     data['klasifikasi_bayes'] = pd.DataFrame({'klasifikasi_bayes': status})
 
     st.subheader('Tweet Sentiment Analyzed Using Naive Bayes')
-    st.dataframe(data.tail())
+    st.dataframe(data.tail(381))
     label = ['Positif', 'Negatif', 'Netral']
     count_data = [total_positif+1, total_negatif+1, total_netral]
     show_pie(label, count_data, "Status")
@@ -284,15 +289,15 @@ def nby():
 
 
 def main():
-    activities = ['Beranda','Lexicon','Naive Bayes']
+    activities = ['Home','Lexicon Based','Naive Bayes Classifier']
 
-    st.sidebar.subheader("Menu")
-    choice = st.sidebar.radio('',activities)
-    if choice == 'Beranda':
+    st.sidebar.subheader("ANALISIS SENTIMEN TWITTER")
+    choice = st.sidebar.selectbox('---------------------------------------------------------------------',activities)
+    if choice == 'Home':
         home()
-    elif choice == 'Lexicon':
+    elif choice == 'Lexicon Based':
         lex()
-    elif choice == 'Naive Bayes':
+    elif choice == 'Naive Bayes Classifier':
         nby()
 
 if __name__ == '__main__':
