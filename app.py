@@ -257,7 +257,7 @@ def nby():
     data['klasifikasi_bayes'] = pd.DataFrame({'klasifikasi_bayes': status})
 
     st.subheader('Tweet Sentiment Analyzed Using Naive Bayes')
-    st.dataframe(data.tail())
+    st.dataframe(data.tail(381))
     label = ['Positif', 'Negatif', 'Netral']
     count_data = [total_positif+1, total_negatif+1, total_netral]
     show_pie(label, count_data, "Status")
